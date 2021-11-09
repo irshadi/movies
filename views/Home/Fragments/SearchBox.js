@@ -1,11 +1,10 @@
 import React from "react";
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { useSearchMovieContext } from "../../../contexts/searchMovie";
 import { SearchInput } from "../../../components/Inputs";
 
 export const SearchBox = () => {
-  const { setSearchValue, resetSearch, handleSearchMovie } =
-    useSearchMovieContext();
+  const { resetSearch, handleSearchMovie } = useSearchMovieContext();
 
   return (
     <Flex w="100%" my="1em">

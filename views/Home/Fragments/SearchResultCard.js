@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Text, Flex, Heading, Image, Skeleton } from "@chakra-ui/react";
+import { useRouter } from "next/dist/client/router";
 
 export const SearchResultCard = ({
   title,
@@ -10,10 +11,12 @@ export const SearchResultCard = ({
   index,
   isLoading
 }) => {
+  const { push } = useRouter();
+
   if (isLoading) {
     return (
-      <Skeleton>
-        <Flex w="75%" h="10em" border="solid 1px" borderRadius="md" />
+      <Skeleton w="75%">
+        <Flex w="75%" h="10em" border="solid 1px" borderRadius="md" mb="1em" />
       </Skeleton>
     );
   }
@@ -24,6 +27,9 @@ export const SearchResultCard = ({
       border="solid 1px"
       borderRadius="md"
       overflow="hidden"
+      mb="1em"
+      cursor="pointer"
+      onClick={() => push(`/${imdbId}`)}
     >
       <Image src={poster} />
       <Box p="2em" w="100%">
