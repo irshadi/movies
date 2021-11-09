@@ -1,6 +1,5 @@
 import React from "react";
 import { useRequest } from "./useRequest";
-import isEqual from "lodash/isEqual";
 
 const SEARCH_MOVIE_ACTION = {
   SET_PAGE: "SET_PAGE",
@@ -31,6 +30,7 @@ const searchMovieReducer = (state, { type, ...action }) => {
 
     case SEARCH_MOVIE_ACTION.SET_SEARCH_RESULT:
       const { searchResult } = action;
+      console.log(searchResult, state);
       return {
         ...state,
         searchResult
@@ -66,19 +66,17 @@ const searchMovieReducer = (state, { type, ...action }) => {
 
 export const useSearchMovie = () => {
   const { get, URL } = useRequest();
-  const [{ page, searchValue, searchResult = {} }, dispatch] = React.useReducer(
-    searchMovieReducer,
-    {
-      page: 1,
-      isLoading: false,
+  const [
+    { page, searchValue, searchResult = [], isLoading, searchMetadata = {} },
+    dispatch
+  ] = React.useReducer(searchMovieReducer, {
+    page: 1,
+    isLoading: false,
 
-      searchValue: "",
-      searchResult: [],
-      searchMetadata: {}
-    }
-  );
-
-  const typeRef = React.useRef();
+    searchValue: "",
+    searchResult: [],
+    searchMetadata: {}
+  });
 
   const setPage = page =>
     dispatch({ type: SEARCH_MOVIE_ACTION.SET_PAGE, page });
@@ -114,42 +112,58 @@ export const useSearchMovie = () => {
     dispatch({ type: SEARCH_MOVIE_ACTION.RESET_SEARCH });
   }, [dispatch]);
 
-  const handleSearchMovie = React.useCallback(
-    async title => {
-      setIsLoading(true);
-      try {
-        const { Search: result = [], ...metadata } = await get(
-          `${URL}s=${title}&page=${page}`
-        );
-        setSearchResult(result);
-        setSearchMetadata(metadata);
-      } catch (error) {
-        throw error;
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    [setIsLoading, page, setSearchMetadata, setSearchResult]
-  );
-
-  React.useEffect(() => {
-    if (!searchValue) {
-      return;
+  const handleSearchMovie = async title => {
+    setIsLoading(true);
+    setSearchValue(title);
+    try {
+      const { Search: result = [], ...metadata } = await get(
+        `${URL}s=${title}&page=${page}`
+      );
+      setSearchResult(result);
+      setSearchMetadata(metadata);
+    } catch (error) {
+      throw error;
+    } finally {
+      setIsLoading(false);
     }
-    handleSearchMovie(searchValue);
-  }, [searchValue, handleSearchMovie]);
+  };
+
+  const handleNextPage = async () => {
+    const currentPage = (page += 1);
+    setPage(currentPage);
+    setIsLoading(true);
+    try {
+      const { Search: result = [], ...metadata } = await get(
+        `${URL}s=${searchValue}&page=${currentPage}`
+      );
+      const copySearchResult = [...searchResult, ...result];
+
+      setSearchResult(copySearchResult);
+      setSearchMetadata(metadata);
+    } catch (error) {
+      setPage((currentPage -= 1));
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return {
     page,
     setPage,
 
     handleSearchMovie,
+    handleNextPage,
+    isLoading,
+
     resetSearch,
 
     searchResult,
     setSearchResult,
 
     searchValue,
-    setSearchValue
+    setSearchValue,
+
+    searchMetadata
   };
 };

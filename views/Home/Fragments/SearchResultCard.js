@@ -1,7 +1,22 @@
 import React from "react";
-import { Box, Text, Flex, Heading, Image } from "@chakra-ui/react";
+import { Box, Text, Flex, Heading, Image, Skeleton } from "@chakra-ui/react";
 
-export const SearchResultCard = ({ title, year, imdbId, poster, type }) => {
+export const SearchResultCard = ({
+  title,
+  year,
+  imdbId,
+  poster,
+  type,
+  index,
+  isLoading
+}) => {
+  if (isLoading) {
+    return (
+      <Skeleton>
+        <Flex w="75%" h="10em" border="solid 1px" borderRadius="md" />
+      </Skeleton>
+    );
+  }
   return (
     <Flex
       w="75%"
@@ -34,6 +49,10 @@ export const SearchResultCard = ({ title, year, imdbId, poster, type }) => {
 
       <Text fontSize="sm" pos="relative" top={2} right={3}>
         #{imdbId}
+      </Text>
+
+      <Text fontSize="sm" pos="relative" top={5} right={3}>
+        {index + 1}.
       </Text>
     </Flex>
   );

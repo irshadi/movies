@@ -1,16 +1,36 @@
 import React from "react";
 import { useSearchMovieContext } from "../../../contexts/searchMovie";
-import { Box, Flex, Grid } from "@chakra-ui/react";
-import { useRectMeasure } from "../../../hooks/useRectMeasure";
+import { Box, Flex } from "@chakra-ui/react";
+import { useInfiniteScroll } from "../../../hooks/useInfiniteScroll";
 import { EmptyContent } from "../../../components/EmptyContent";
 import { SearchResultCard } from "./SearchResultCard";
 
 export const SearchResult = () => {
-  const { searchValue, searchResult } = useSearchMovieContext();
-  const { ref, rect } = useRectMeasure();
+  const {
+    searchValue,
+    searchResult = [],
+    handleNextPage,
+    page,
+    isLoading
+  } = useSearchMovieContext();
+  const { onScrollEnd } = useInfiniteScroll({
+    threshold: 90,
+    handleReachBottom: () => {
+      if (isLoading) {
+        return;
+      }
+      handleNextPage();
+    }
+  });
+
+  const data = isLoading
+    ? [
+        ...searchResult,
+        ...Array.from({ length: 10 }, () => ({ isLoading: true }))
+      ]
+    : searchResult;
 
   const hasNotStartSearchYet = !searchValue && !searchResult.length;
-  // const isSearchResultEmpty = ;
 
   if (hasNotStartSearchYet) {
     return (
@@ -26,27 +46,31 @@ export const SearchResult = () => {
   }
 
   return (
-    <Box height="30em" mt="2em" ref={ref} overflowY="auto">
-      <Grid templateColumns="repeat(1, 1fr)" gap={4}>
-        {searchResult.map(
-          ({
+    <Box height="30em" mt="2em" overflowY="auto" onScroll={onScrollEnd}>
+      {data.map(
+        (
+          {
             Poster: poster,
             Year: year,
             imdbID: imdbId,
             Type: type,
-            Title: title
-          }) => (
-            <SearchResultCard
-              key={imdbId}
-              imdbId={imdbId}
-              poster={poster}
-              year={year}
-              type={type}
-              title={title}
-            />
-          )
-        )}
-      </Grid>
+            Title: title,
+            isLoading = false
+          },
+          index
+        ) => (
+          <SearchResultCard
+            index={index}
+            isLoading={isLoading}
+            key={`${index}-${imdbId}`}
+            imdbId={imdbId}
+            poster={poster}
+            year={year}
+            type={type}
+            title={title}
+          />
+        )
+      )}
     </Box>
   );
 };
