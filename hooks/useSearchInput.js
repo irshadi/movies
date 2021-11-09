@@ -9,7 +9,7 @@ import debounce from "lodash/debounce";
  * @returns {*}
  */
 export const useSearchInput = (config = {}) => {
-  const { delay = 500 } = config;
+  const { delay = 500, onClear } = config;
 
   /**
    * On this hook primarly we need two state, the first one is to manage "controlled input"
@@ -35,6 +35,7 @@ export const useSearchInput = (config = {}) => {
   const handleClearSearch = () => {
     _setDisplayValue("");
     _setSearchValue("");
+    onClear();
   };
 
   // Side effect to delay between the displayValue and searchValue

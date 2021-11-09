@@ -20,23 +20,25 @@ const SearchInput = ({
   ...props
 }) => {
   const { displayValue, setDisplayValue, searchValue, handleClearSearch } =
-    useSearchInput({ delay: 500 });
+    useSearchInput({ delay: 500, onClear });
 
   const _hasOnClear = hasOnClear && Boolean(displayValue.length);
 
   // Trigger search on higher level
   React.useEffect(() => {
+    if (!searchValue) {
+      return;
+    }
     onSearch(searchValue);
   }, [searchValue]);
 
   return (
-    <InputGroup my="1em">
+    <InputGroup w="20em">
       <InputLeftElement pointerEvents="none">
         <Icon as={IoIosSearch} color="gray.700" />
       </InputLeftElement>
       <Input
         pl="2.5em"
-        borderRadius="full"
         {...props}
         value={displayValue}
         onChange={e => setDisplayValue(e.target.value)}
