@@ -4,8 +4,9 @@ import { useSearchMovieContext } from "../../../contexts/searchMovie";
 import { SearchInput } from "../../../components/Inputs";
 
 export const SearchBox = () => {
-  const { setSearchValue, searchType, handleSearchMovie, resetSearch } =
+  const { setSearchValue, handleSearchMovie, resetSearch } =
     useSearchMovieContext();
+
   return (
     <Flex w="100%" my="1em">
       <SearchInput
