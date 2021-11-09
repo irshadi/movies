@@ -1,7 +1,7 @@
 import React from "react";
-import { MovieView } from "../../views/Movie";
+import { MovieDetailsWrapper } from "../../views/Movie";
 import { PageWrapper } from "../../components/PageWrapper";
 
-const MovieDetails = () => <PageWrapper page={MovieView} needQuery />;
+const MovieDetails = () => <PageWrapper page={MovieDetailsWrapper} needQuery />;
 
 export default MovieDetails;
