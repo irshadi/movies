@@ -1,11 +1,17 @@
 import React from "react";
-import { Box, Text, Button } from "@chakra-ui/react";
+import { Box, Text, Button, Heading } from "@chakra-ui/react";
+import { SearchMovieContextProvider } from "../contexts/searchMovie";
 
-export const Homepage = () => {
+const HomepageView = () => {
   return (
     <Box>
-      <Text>Hello World</Text>
-      <Button>Hey</Button>
+      <Heading>Search Movie</Heading>
     </Box>
   );
 };
+
+export const HomepageWrapper = () => (
+  <SearchMovieContextProvider>
+    <HomepageView />
+  </SearchMovieContextProvider>
+);
