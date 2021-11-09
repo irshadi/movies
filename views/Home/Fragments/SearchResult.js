@@ -10,7 +10,6 @@ export const SearchResult = () => {
     searchValue,
     searchResult = [],
     handleNextPage,
-    page,
     isLoading
   } = useSearchMovieContext();
   const { onScrollEnd } = useInfiniteScroll({
