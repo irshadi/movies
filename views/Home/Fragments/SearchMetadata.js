@@ -12,7 +12,7 @@ export const SearchMetadata = () => {
   const totalPage = Math.ceil(searchMetadata.totalResults / 10);
 
   return (
-    <Flex align="center" mt="1em">
+    <Flex align="center" mt="1em" data-cy="search-metadata">
       <Text>
         Page: {page} out of {totalPage}. {searchMetadata.totalResults} result(s)
         found.

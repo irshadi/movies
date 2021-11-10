@@ -12,6 +12,7 @@ export const SearchBox = () => {
         w="30em"
         onSearch={handleSearchMovie}
         onClear={resetSearch}
+        data-cy="search-input"
       />
     </Flex>
   );

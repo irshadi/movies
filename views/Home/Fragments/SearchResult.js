@@ -35,7 +35,7 @@ export const SearchResult = () => {
 
   if (hasNotStartSearchYet || hasError) {
     return (
-      <Flex w="100%" justify="center" my="2em">
+      <Flex w="100%" justify="center" my="2em" data-cy="empty-content">
         <EmptyContent
           title={
             hasError ? searchMetadata.Error : "You haven't search anything yet"
@@ -54,7 +54,13 @@ export const SearchResult = () => {
   }
 
   return (
-    <Box height="30em" my="2em" overflowY="auto" onScroll={onScrollEnd}>
+    <Box
+      height="30em"
+      my="2em"
+      overflowY="auto"
+      onScroll={onScrollEnd}
+      data-cy="search-container"
+    >
       {data.map(
         (
           {

@@ -32,13 +32,14 @@ export const SearchResultCard = ({
       mb="1em"
       cursor="pointer"
       onClick={() => push(`/${imdbId}`)}
+      data-cy="search-result-card"
     >
       <Image src={poster} />
       <Box p="2em" w="100%">
-        <Heading fontSize="2xl" isTruncated>
+        <Heading fontSize="2xl" isTruncated data-cy="search-result-title">
           {title}
         </Heading>
-        <Text>{year}</Text>
+        <Text data-cy="search-result-year">{year}</Text>
         <Flex
           mt="1em"
           w="5em"
@@ -49,13 +50,23 @@ export const SearchResultCard = ({
           py=".25em"
           bg="gray.200"
         >
-          <Text fontWeight="black" textTransform="capitalize">
+          <Text
+            fontWeight="black"
+            textTransform="capitalize"
+            data-cy="search-result-type"
+          >
             {type}
           </Text>
         </Flex>
       </Box>
 
-      <Text fontSize="sm" pos="relative" top={2} right={3}>
+      <Text
+        fontSize="sm"
+        pos="relative"
+        top={2}
+        right={3}
+        data-cy="search-result-imdb-id"
+      >
         #{imdbId}
       </Text>
 
