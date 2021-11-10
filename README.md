@@ -17,9 +17,10 @@ This project is tested with [cypress](https://www.cypress.io/)
 ```bash
 yarn prepare
 
-# To run with headless mode
+# On other tab please either, run:
+# 1. To run with headless mode
 yarn test:run
 
-# To open cypress in browser
+# 2. To open cypress in browser
 yarn test:open
 ```
