@@ -8,7 +8,7 @@ export const MoviePosterModal = ({ ...props }) => {
   const { Poster: poster } = movieDetails;
 
   return (
-    <Modal {...props}>
+    <Modal {...props} data-cy="poster-modal">
       <ModalBody>
         <Image src={poster} h="75vh" />
       </ModalBody>
