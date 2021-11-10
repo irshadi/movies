@@ -33,7 +33,7 @@ export const SearchResult = () => {
 
   if (hasNotStartSearchYet) {
     return (
-      <Flex w="100%" justify="center" mt="2em">
+      <Flex w="100%" justify="center" my="2em">
         <EmptyContent
           title="You haven't search anything yet"
           label="Start typing on searchbox to initiate search"
@@ -45,7 +45,7 @@ export const SearchResult = () => {
   }
 
   return (
-    <Box height="30em" mt="2em" overflowY="auto" onScroll={onScrollEnd}>
+    <Box height="30em" my="2em" overflowY="auto" onScroll={onScrollEnd}>
       {data.map(
         (
           {

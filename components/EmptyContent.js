@@ -17,10 +17,8 @@ export const EmptyContent = ({
       justify="center"
       flexDir="column"
       opacity="0.3"
-      bg="gray.300"
       borderRadius=".25em"
       boxShadow="lg"
-      color="gray.700"
       {...props}
     >
       <Icon
@@ -32,7 +30,7 @@ export const EmptyContent = ({
       <Text fontSize="lg" fontWeight="600">
         {title}
       </Text>
-      <Text fontWeight="500" mt="1em" color="gray.600">
+      <Text fontWeight="500" mt="1em">
         {label}
       </Text>
     </Flex>

@@ -9,7 +9,7 @@ export const SearchBox = () => {
   return (
     <Flex w="100%" my="1em">
       <SearchInput
-        w="25em"
+        w="30em"
         onSearch={handleSearchMovie}
         onClear={resetSearch}
       />

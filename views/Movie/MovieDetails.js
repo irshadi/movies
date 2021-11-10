@@ -2,7 +2,6 @@ import React from "react";
 import {
   Box,
   Flex,
-  Button,
   Text,
   Heading,
   Image,
@@ -11,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { useMovieDetailsContext } from "../../contexts/movieDetails";
 
-export const MovieDetail = () => {
+export const MovieDetail = ({ onClickPoster }) => {
   const {
     movieDetails: {
       Actors: actors,
@@ -44,10 +43,10 @@ export const MovieDetail = () => {
         <Spinner />
       ) : (
         <Flex w="100%">
-          <Box w="40%">
-            <Image src={poster} />
-          </Box>
-          <Box w="60%" px="1em">
+          <Flex w="30%" justify="center">
+            <Image src={poster} cursor="pointer" onClick={onClickPoster} />
+          </Flex>
+          <Box w="70%" px="1em">
             <Heading>{title}</Heading>
             <Text>{year}</Text>
 

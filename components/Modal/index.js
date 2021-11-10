@@ -20,7 +20,7 @@ export const Modal = ({ onClose, isOpen, title, children, ...props }) => {
       {...props}
     >
       <ModalOverlay />
-      <ModalContent w={["92.5%"]} data-cy={props["data-cy"] || "modal"}>
+      <ModalContent data-cy={props["data-cy"] || "modal"}>
         <ModalHeader textTransform="capitalize">{title}</ModalHeader>
         <ModalCloseButton rounded="full" color="system.grey" />
         {children}
