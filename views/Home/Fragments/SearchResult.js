@@ -10,6 +10,7 @@ export const SearchResult = () => {
     searchValue,
     searchResult = [],
     handleNextPage,
+    searchMetadata,
     isLoading
   } = useSearchMovieContext();
   const { onScrollEnd } = useInfiniteScroll({
@@ -30,15 +31,23 @@ export const SearchResult = () => {
     : searchResult;
 
   const hasNotStartSearchYet = !searchValue && !searchResult.length;
+  const hasError = searchMetadata && searchMetadata.Error;
 
-  if (hasNotStartSearchYet) {
+  if (hasNotStartSearchYet || hasError) {
     return (
       <Flex w="100%" justify="center" my="2em">
         <EmptyContent
-          title="You haven't search anything yet"
-          label="Start typing on searchbox to initiate search"
+          title={
+            hasError ? searchMetadata.Error : "You haven't search anything yet"
+          }
+          label={
+            hasError
+              ? "Please try antoher keyword"
+              : "Start typing on searchbox to initiate search"
+          }
           h="25em"
           w="25em"
+          bg="gray.200"
         />
       </Flex>
     );

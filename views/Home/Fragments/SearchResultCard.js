@@ -15,7 +15,7 @@ export const SearchResultCard = ({
 
   if (isLoading) {
     return (
-      <Skeleton w="75%">
+      <Skeleton w="75%" boxShadow="md">
         <Flex w="75%" h="10em" border="solid 1px" borderRadius="md" mb="1em" />
       </Skeleton>
     );
@@ -25,6 +25,8 @@ export const SearchResultCard = ({
       w="75%"
       h="10em"
       border="solid 1px"
+      borderColor="gray.200"
+      boxShadow="md"
       borderRadius="md"
       overflow="hidden"
       mb="1em"
@@ -45,7 +47,7 @@ export const SearchResultCard = ({
           rounded="full"
           px="1em"
           py=".25em"
-          bg="gray.700"
+          bg="gray.200"
         >
           <Text fontWeight="black" textTransform="capitalize">
             {type}
